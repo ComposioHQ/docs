@@ -4,6 +4,8 @@ sidebarTitle: "Quick Start"
 icon: "rocket"
 description: "Composio manages authentication for your agents, enabling them to perform actions and receive webhooks on behalf of your users."
 ---
+import { useState } from 'react';
+
 <CardGroup cols={2}>
 <Card title="Introduction Video" icon="play" color="#2A60FE" href="https://www.youtube.com/watch?v=ujxKzS0b5qg">
    Dive into our Introduction Video and learn more about our mission!
@@ -20,163 +22,180 @@ description: "Composio manages authentication for your agents, enabling them to 
 </CardGroup>
 <Note> Check out guides for **direct integrations** with [*Autogen*](https://docs.composio.dev/framework/autogen), [*Langchain*](https://docs.composio.dev/framework/langchain) </Note>  
 
-## Try Composio 🧑🏻‍💻 🕰️ 3 minutes
-Let's Get you **Setup with Composio** and use **Natural Language + Function Calling**
+## Select Your App 🧑🏻‍💻
+<select onChange={(e) => setApp(e.target.value)} value={app}>
+  <option value="GitHub">GitHub</option>
+  <option value="OtherApp">Other App</option>
+</select>
+
+{app === 'GitHub' ? 
+  <>
+   ## Try Composio with GitHub 🧑🏻‍💻 🕰️ 3 minutes
+    Let's Get you **Setup with Composio** and use **Natural Language + Function Calling**
 
 
-<Tip>Goal: Star a repository on GitHub with natural language</Tip>
+    <Tip>Goal: Star a repository on GitHub with natural language</Tip>
 
-<Steps> 
-<Step title="Setting Up GitHub Integration">
-<AccordionGroup title="Select the option that suits you best.">
-<Accordion title="Option 1: Use Test Integration (Default) - Easy Start">
-Just use `TestIntegration.AppName` to use default integrations.
-</Accordion>
-<Accordion title="Option 2: Create your Integration - By Registering Github Developer App">
-[Create Integration](https://docs.composio.dev/apps/github) _Copy your integration ID._
-</Accordion>
-</AccordionGroup>
+    <Steps> 
+    <Step title="Setting Up GitHub Integration">
+    <AccordionGroup title="Select the option that suits you best.">
+    <Accordion title="Option 1: Use Test Integration (Default) - Easy Start">
+    Just use `TestIntegration.AppName` to use default integrations.
+    </Accordion>
+    <Accordion title="Option 2: Create your Integration - By Registering Github Developer App">
+    [Create Integration](https://docs.composio.dev/apps/github) _Copy your integration ID._
+    </Accordion>
+    </AccordionGroup>
 
-</Step>
+    </Step>
 
-<Step title="Authenticating Github">
-<CodeGroup>
-```bash Install Composio SDK 
-pip install composio-core
-```
-</CodeGroup>
-Use `Github Integration` to Connect your `Github Account`
+    <Step title="Authenticating Github">
+    <CodeGroup>
+    ```bash Install Composio SDK 
+    pip install composio-core
+    ```
+    </CodeGroup>
+    Use `Github Integration` to Connect your `Github Account`
 
-Modify *Composio* `api-key` by [creating your own](https://app.composio.dev/api_keys). 
-<Tip> TestIntegration.*App* uses Composio built-in Integrations </Tip>
-<CodeGroup>
-```python Auth via OAuth 
-from composio import Composio, TestIntegration
+    Modify *Composio* `api-key` by [creating your own](https://app.composio.dev/api_keys). 
+    <Tip> TestIntegration.*App* uses Composio built-in Integrations </Tip>
+    <CodeGroup>
+    ```python Auth via OAuth 
+    from composio import Composio, TestIntegration
 
-client = Composio("api-key") 
+    client = Composio("api-key") 
 
-#client.get_integration(**YourIntegrationID**)
-integration = client.get_integration(TestIntegration.GITHUB)
+    #client.get_integration(**YourIntegrationID**)
+    integration = client.get_integration(TestIntegration.GITHUB)
 
-#Trying to initiate a new connection
-connected_account = integration.initiate_connection(entity_id = None)
+    #Trying to initiate a new connection
+    connected_account = integration.initiate_connection(entity_id = None)
 
-print("Complete the auth flow, link: ", connected_account.redirectUrl)
+    print("Complete the auth flow, link: ", connected_account.redirectUrl)
 
-```
+    ```
 
-</CodeGroup>
-</Step>
-<Step title="Wait for Connected Account Status to be 'Active'">
-  If you haven’t, please click on redirectUrl above and complete the flow.
-  <CodeGroup>
-    ```python Connected Account Polling
+    </CodeGroup>
+    </Step>
+    <Step title="Wait for Connected Account Status to be 'Active'">
+      If you haven’t, please click on redirectUrl above and complete the flow.
+      <CodeGroup>
+        ```python Connected Account Polling
+        #Keep Polling and wait until timeout
+        connected_account = connected_account.wait_until_active(timeout=60)
+        ```
+      </CodeGroup>
+    </Step>
+
+    <Step title="Supported Actions">
+      <CodeGroup>
+        ```python Fetch Actions
+        actions = connected_account.get_all_actions()
+        ```
+      </CodeGroup>
+
+    </Step>
+
+    <Step title="Using Function Call">
+    Modify `OPENAIKEY` before executing it.
+    <CodeGroup>
+    ```python Task to Action Selection
+    from openai import OpenAI
+
+    my_task = "Star a repo SamparkAI/docs on GitHub"
+
+    # Initialize the OpenAI client with your API key
+    openai_client = OpenAI(api_key="******OPENAIKEY******")
+
+    # Create a chat completion request to decide on the action
+    response = openai_client.chat.completions.create(
+    model="gpt-4-turbo-preview",
+    tools=actions, # Passing actions we fetched earlier.
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": my_task}
+      ]
+    )
+    ```
+
+    </CodeGroup>
+    </Step>
+
+    <Step title="Handle Tool Calls - Execute Actions">
+    <CodeGroup>
+    ```python Executing Selected Actions!
+    # Execute Function calls
+    execution_details = connected_account.handle_tools_calls(response)
+
+    print(execution_details)
+
+    print("Completed Task")
+
+    ```
+
+    </CodeGroup>
+    </Step>
+    </Steps>
+
+    ### Putting it all together
+
+    <CodeGroup>
+    ```python Complete Code 
+    ## Step 1
+    #!pip install composio-core
+
+    ## Step 2
+    from openai import OpenAI
+    from composio import Composio, TestIntegration
+
+    # Initialize the OpenAI client with your API key
+    openai_client = OpenAI(api_key="******OPENAIKEY******")
+    client = Composio("api-key") 
+
+    #client.get_integration(**YourIntegrationID**)
+    integration = client.get_integration(TestIntegration.GITHUB)
+
+    #Trying to initiate a new connection
+    connected_account = integration.initiate_connection(entity_id = None)
+
+    print("Complete the auth flow, link: ", connected_account.redirectUrl)
+
+    ## Step 3
     #Keep Polling and wait until timeout
     connected_account = connected_account.wait_until_active(timeout=60)
-    ```
-  </CodeGroup>
-</Step>
 
-<Step title="Supported Actions">
-  <CodeGroup>
-    ```python Fetch Actions
+    ## Step 4 
     actions = connected_account.get_all_actions()
+
+    ## Step 5
+    my_task = "Star a repo SamparkAI/docs on GitHub"
+
+
+
+    # Create a chat completion request to decide on the action
+    response = openai_client.chat.completions.create(model="gpt-4-turbo-preview",
+    tools=actions, # Passing actions we fetched earlier.
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": my_task}
+      ]
+    )
+
+    ## Step 6
+    # Execute Function calls
+    execution_details = connected_account.handle_tools_calls(response)
+
+    print(execution_details)
+
+    print("Completed Task")
     ```
-  </CodeGroup>
+    </CodeGroup>
+  </>
+ }
 
-</Step>
-
-<Step title="Using Function Call">
-Modify `OPENAIKEY` before executing it.
-<CodeGroup>
-```python Task to Action Selection
-from openai import OpenAI
-
-my_task = "Star a repo SamparkAI/docs on GitHub"
-
-# Initialize the OpenAI client with your API key
-openai_client = OpenAI(api_key="******OPENAIKEY******")
-
-# Create a chat completion request to decide on the action
-response = openai_client.chat.completions.create(
-model="gpt-4-turbo-preview",
-tools=actions, # Passing actions we fetched earlier.
-messages=[
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": my_task}
-  ]
-)
+{app === 'OtherApp' ? 
+<> 
+## Try Composio with OtherApp 🧑🏻‍💻 🕰️ 3 minutes 
+</>
+}
 ```
-
-</CodeGroup>
-</Step>
-
-<Step title="Handle Tool Calls - Execute Actions">
-<CodeGroup>
-```python Executing Selected Actions!
-# Execute Function calls
-execution_details = connected_account.handle_tools_calls(response)
-
-print(execution_details)
-
-print("Completed Task")
-
-```
-
-</CodeGroup>
-</Step>
-</Steps>
-
-### Putting it all together
-
-<CodeGroup>
-```python Complete Code 
-## Step 1
-#!pip install composio-core
-
-## Step 2
-from openai import OpenAI
-from composio import Composio, TestIntegration
-
-# Initialize the OpenAI client with your API key
-openai_client = OpenAI(api_key="******OPENAIKEY******")
-client = Composio("api-key") 
-
-#client.get_integration(**YourIntegrationID**)
-integration = client.get_integration(TestIntegration.GITHUB)
-
-#Trying to initiate a new connection
-connected_account = integration.initiate_connection(entity_id = None)
-
-print("Complete the auth flow, link: ", connected_account.redirectUrl)
-
-## Step 3
-#Keep Polling and wait until timeout
-connected_account = connected_account.wait_until_active(timeout=60)
-
-## Step 4 
-actions = connected_account.get_all_actions()
-
-## Step 5
-my_task = "Star a repo SamparkAI/docs on GitHub"
-
-
-
-# Create a chat completion request to decide on the action
-response = openai_client.chat.completions.create(model="gpt-4-turbo-preview",
-tools=actions, # Passing actions we fetched earlier.
-messages=[
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": my_task}
-  ]
-)
-
-## Step 6
-# Execute Function calls
-execution_details = connected_account.handle_tools_calls(response)
-
-print(execution_details)
-
-print("Completed Task")
-```
-</CodeGroup>
