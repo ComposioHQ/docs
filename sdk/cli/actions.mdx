@@ -1,0 +1,48 @@
+---
+title: "🧑🏻‍💻 Managing Apps/Actions using CLI"
+sidebarTitle: "Apps/Actions"
+icon: "globe"
+description: "Learn how to get/update enums for apps/actions using the CLI."
+---
+
+### Managing Actions
+
+<Steps>
+<Step title="Get actions for a specific use case">
+Get all the actions for a specific use case. You can just copy/paste the actions to your codebase.
+  <CodeGroup>
+  ```bash Show all actions for a use case
+  composio-cli get-actions asana "Do all things related to tasks, spaces, folders etc. in asana" --limit=10
+  ```
+  </CodeGroup>
+  Output:
+  ```bash
+  Version: 0.2.37
+  Path: /Users/karanvaidya/codes/hermes/try_composio_sdk/venv3.12/lib/python3.12/site-packages/composio
+
+  > Actions for asana and use case all actions related to tasks, spaces, folders etc. in asana:
+
+  Action.ASANA_TASKS_GET_MULTIPLE, Action.ASANA_TASKS_GET_TASK_RECORD, Action.ASANA_TASKS_DELETE_TASK, Action.ASANA_TASKS_GET_TASKS_BY_PROJECT, Action.ASANA_TASKS_GET_USER_TASK_LIST_TASKS, 
+  Action.ASANA_TASKS_SET_PARENT_TASK, Action.ASANA_TASKS_SET_DEPENDENCIES_FOR_TASK, Action.ASANA_TASKS_ADD_PROJECT_TO_TASK, Action.ASANA_TASKS_ADD_TAG_TO_TASK, Action.ASANA_TASKS_ADD_FOLLOWERS_TO_TASK
+
+  Do you want to copy these enums to the clipboard? (yes/no): 
+  ```
+</Step>
+<Step title="Connecting your preferred tool to Composio">
+**Authorise your app account** to enable agent interactions.
+  <CodeGroup>
+  ```bash Authorise Slack
+  composio-cli add slack # Replace 'slack' with any supported app
+  ```
+  </CodeGroup>
+  After completing the authorisation, a new `connected_account` will be created and visible in your dashboard.
+</Step>
+<Step title="Show all Active Connections for any App">
+**View all active connections** for a specific app.
+  <CodeGroup>
+  ```bash Show currently active connections
+  composio-cli show-connections slack # Replace 'slack' with any supported app
+  ```
+  </CodeGroup>
+</Step>
+</Steps>
