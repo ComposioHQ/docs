@@ -5,17 +5,13 @@ icon: "globe"
 description: "Learn how to get/update enums for apps/actions using the CLI."
 ---
 
-### Managing Actions
-
-<Steps>
-<Step title="Get actions for a specific use case">
+### Get actions for a use case
 Get all the actions for a specific use case. You can just copy/paste the actions to your codebase.
   <CodeGroup>
   ```bash Show all actions for a use case
   composio-cli get-actions asana "Do all things related to tasks, spaces, folders etc. in asana" --limit=10
   ```
   </CodeGroup>
-  Output:
   ```bash
   Version: 0.2.37
   Path: /Users/karanvaidya/codes/hermes/try_composio_sdk/venv3.12/lib/python3.12/site-packages/composio
@@ -27,22 +23,21 @@ Get all the actions for a specific use case. You can just copy/paste the actions
 
   Do you want to copy these enums to the clipboard? (yes/no): 
   ```
-</Step>
-<Step title="Connecting your preferred tool to Composio">
-**Authorise your app account** to enable agent interactions.
+
+### Update the enums for apps
+We keep updating the enums for apps in our SDK. But, You can also update the enums for the apps you don't find in the SDK.
   <CodeGroup>
-  ```bash Authorise Slack
-  composio-cli add slack # Replace 'slack' with any supported app
+  ```bash Update Apps/Actions Enums
+  composio-cli update
   ```
   </CodeGroup>
-  After completing the authorisation, a new `connected_account` will be created and visible in your dashboard.
-</Step>
-<Step title="Show all Active Connections for any App">
-**View all active connections** for a specific app.
+Now you can use the updated enums for the apps in your codebase.
+
+### Update the enums for apps in Beta
+To use the apps in beta, you need to update the enums for the apps in beta.
   <CodeGroup>
-  ```bash Show currently active connections
-  composio-cli show-connections slack # Replace 'slack' with any supported app
+  ```bash Update Apps/Actions Enums in Beta
+  composio-cli update-beta
   ```
   </CodeGroup>
-</Step>
-</Steps>
+Now, you can use the enums for the apps in beta in your codebase like `App.NOTIONBETA` and so on.
