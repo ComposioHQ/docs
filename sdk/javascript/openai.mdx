@@ -1,0 +1,93 @@
+---
+title: "Using Composio JS SDK with OpenAI"
+sidebarTitle: "With OpenAI"
+icon: "code"
+description: "Use Composio JS SDK with OpenAI"
+---
+
+<Steps>
+<Step title="Installation Steps">
+ <CodeGroup>
+      ```javascript Import OpenAI and OpenAIToolSet
+      import { OpenAI } from "openai";
+import { OpenAIToolSet, Action } from "composio-core";
+      ```
+    </CodeGroup>
+</Step>
+<Step title="Initialize OpenAIToolSet and OpenAI">
+
+ <CodeGroup>
+      ```typescript Import OpenAI and OpenAIToolSet
+const toolset = new OpenAIToolSet({
+    // Use API key generated in previous guide
+    apiKey: process.env.COMPOSIO_API_KEY,      
+});
+
+const tools = await toolset.get_actions([
+    Action.GITHUB_USERS_GET_AUTHENTICATED,
+    Action.GITHUB_ISSUES_CREATE
+]);
+
+const client = new OpenAI({
+    // set your OpenAI API key here or in your environment variables
+    apiKey: process.env.OPENAI_API_KEY
+})
+      ```
+    </CodeGroup>
+
+Make sure you're using actions that are enabled for your project.
+
+</Step>
+
+<Step title="Add openAI assistant handler">
+
+<CodeGroup>
+      ```typescript Add openAI assistant handler
+
+    const assistant = await client.beta.assistants.create({
+        model: "gpt-4-turbo",
+        description: "Create a issue with 'hello world' title on user's github repo",
+        instructions: "You are a helpful assistant that take actions on user's github",
+        tools: tools,
+    })
+
+    const thread = await client.beta.threads.create({
+        messages: [{
+        role: "user",
+        content: body
+        }]
+    })
+    let  run = await client.beta.threads.runs.create(
+        thread.id,
+        {
+        assistant_id: assistant.id,
+        }
+    )
+
+    run = await toolset.wait_and_handle_assistant_tool_calls(client, run, thread)
+    
+    // Check if the run is completed
+    if (run.status === "completed") {
+        let messages = await client.beta.threads.messages.list(thread.id);
+        console.log(messages.data);
+        return messages.data;
+      } else if (run.status === "requires_action") {
+        console.log(run.status);
+        return await toolset.handle_assistant_message(run)
+      } else {
+        console.error("Run did not complete:", run);
+      }
+      ```
+    </CodeGroup>
+
+    You can now
+
+</Step>
+
+<Step title="Complete code snippet">
+
+View the full snippet [here](https://github.com/ComposioHQ/composio-js/blob/main/examples/openai/demo_assistant.mjs)
+</Step>
+</Steps>
+
+
