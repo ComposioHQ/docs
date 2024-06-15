@@ -5,8 +5,6 @@ icon: "code"
 description: "Use Composio JS SDK with Langchain"
 ---
 
-📋 To check the reference for Langchain, visit [here](https://composiohq.github.io/composio-js/classes/frameworks_langchain.LangchainToolSet.html)
-
 
 <Steps>
 <Step title="Import Dependencies">
@@ -23,27 +21,30 @@ import { LangchainToolSet } from "composio-core";
 
  <CodeGroup>
       ```typescript  Define method to ask user to login
+const toolset = new LangchainToolSet({ apiKey: process.env.COMPOSIO_API_KEY, });
+
 async function setupUserConnectionIfNotExists(entityId) {
     const entity = await toolset.client.getEntity(entityId);
     const connection = await entity.getConnection('github');
+
     if (!connection) {
         const connection = await entity.initiateConnection(appName);
         console.log("Log in via: ", connection.redirectUrl);
         return connection.waitUntilActive(60);
     }
+
     return connection;
 }
       ```
     </CodeGroup>
 
-The entityId is defined by your project, composio handle authentication with tools and performing action on this entity.
-
+Learn more about Entities [here](introduction/foundations/components/entity/entity-guide)
 </Step>
 
-<Step title="Setup agent with langchain">
+<Step title="Setup Agent with Langchain">
 
 <CodeGroup>
-      ```typescript Define your agent
+      ```typescript Define your Agent
 async function executeGithubAgent (entityName){
 
     // Create entity and get tools
@@ -52,7 +53,6 @@ async function executeGithubAgent (entityName){
     const tools = await toolset.get_actions({ actions: ["github_issues_create"] },entity.id);
 
     // Create an agent
-    const toolset = new LangchainToolSet({apiKey: process.env.COMPOSIO_API_KEY,});
     const prompt = await pull("hwchase17/openai-functions-agent");
     const llm = new ChatOpenAI({
         model: "gpt-4",
@@ -80,7 +80,7 @@ async function executeGithubAgent (entityName){
 
 </Step>
 
-<Step title="Invoke your agent">
+<Step title="Invoke your Agent">
 
 <CodeGroup>
       ```typescript  Invoke the agent
@@ -88,12 +88,10 @@ async function executeGithubAgent (entityName){
       ```
     </CodeGroup>
 
-Tada🎉! It was this simple to create a powerful agent with composio and Langchain.
+Tada🎉! It was this simple to create a powerful Agent with Composio and Langchain.
 </Step>
 
 <Step title="Complete code snippet">
-
-For complete reference for Langchain, visit [here](https://composiohq.github.io/composio-js/classes/frameworks_langchain.LangchainToolSet.html)
 
 View the full code snippet [here](https://github.com/ComposioHQ/composio-js/blob/main/examples/langchain/sample.ts)
 </Step>
