@@ -23,16 +23,16 @@ const toolset = new OpenAIToolSet({
 });
 
 async function setupUserConnectionIfNotExists(entityId) {
-    const entity = await toolset.client.getEntity(entityId);
-    const connection = await entity.getConnection('github');
+        const entity = await toolset.client.getEntity(entityId);
+        const connection = await entity.getConnection('github');
 
-    if (!connection) {
-        const connection = await entity.initiateConnection(appName);
-        console.log("Log in via: ", connection.redirectUrl);
-        return connection.waitUntilActive(60);
-    }
+        if (!connection) {
+            const connection = await entity.initiateConnection(appName);
+            console.log("Log in via: ", connection.redirectUrl);
+            return connection.waitUntilActive(60);
+        }
 
-    return connection;
+        return connection;
 }
       ```
     </CodeGroup>
