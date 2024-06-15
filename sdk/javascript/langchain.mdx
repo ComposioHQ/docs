@@ -9,77 +9,93 @@ description: "Use Composio JS SDK with Langchain"
 
 
 <Steps>
-<Step title="Installation Steps">
+<Step title="Import Dependencies">
  <CodeGroup>
       ```javascript Import OpenAI and OpenAIToolSet
 import { ChatOpenAI } from "@langchain/openai";
 import { createOpenAIFunctionsAgent, AgentExecutor } from "langchain/agents";
 import { pull } from "langchain/hub";
-
 import { LangchainToolSet } from "composio-core";
       ```
     </CodeGroup>
 </Step>
-<Step title="Initialize LangchainToolSet and setup agent">
+<Step title="Define method to ask user to login">
 
  <CodeGroup>
-      ```typescript Initial setup
- const llm = new ChatOpenAI({
-    model: "gpt-4",
-    apiKey: process.env.COMPOSIO_API_KEY,
-    });
-
-    const toolset = new LangchainToolSet({
-    apiKey: process.env.COMPOSIO_API_KEY,
-    });
-
-    const tools = await toolset.get_actions("github_issues_create");
-
-    const prompt = await pull(
-    "hwchase17/openai-functions-agent"
-    );
-
-    const agent = await createOpenAIFunctionsAgent({
-    llm,
-    tools,
-    prompt,
-    });
-
-    const agentExecutor = new AgentExecutor({
-    agent,
-    tools,
-    verbose: true,
-    });
+      ```typescript  Define method to ask user to login
+async function setupUserConnectionIfNotExists(entityId) {
+    const entity = await toolset.client.getEntity(entityId);
+    const connection = await entity.getConnection('github');
+    if (!connection) {
+        const connection = await entity.initiateConnection(appName);
+        console.log("Log in via: ", connection.redirectUrl);
+        return connection.waitUntilActive(60);
+    }
+    return connection;
+}
       ```
     </CodeGroup>
 
-Make sure you're using actions that are enabled for your project.
+The entityId is defined by your project, composio handle authentication with tools and performing action on this entity.
 
 </Step>
 
-<Step title="Invoke the agent">
+<Step title="Setup agent with langchain">
 
 <CodeGroup>
-      ```typescript Add openAI assistant handler
+      ```typescript Define your agent
+async function executeGithubAgent (entityName){
 
-const body = "TITLE: HELLO WORLD, DESCRIPTION: HELLO WORLD for the repo - utkarsh-dixit/speedy"
+    // Create entity and get tools
+    const entity = await toolset.client.getEntity(entityName)
+    await setupUserConnectionIfNotExists(entity.id);
+    const tools = await toolset.get_actions({ actions: ["github_issues_create"] },entity.id);
 
-   const result = await agentExecutor.invoke({
+    // Create an agent
+    const toolset = new LangchainToolSet({apiKey: process.env.COMPOSIO_API_KEY,});
+    const prompt = await pull("hwchase17/openai-functions-agent");
+    const llm = new ChatOpenAI({
+        model: "gpt-4",
+        apiKey: process.env.OPEN_AI_API_KEY
+    });
+
+    const agent = await createOpenAIFunctionsAgent({
+        llm,
+        tools: tools,
+        prompt,
+    });
+    const agentExecutor = new AgentExecutor({agent,tools,verbose: true,});
+
+    // Invoke the agent
+    const body = "TITLE: HELLO WORLD, DESCRIPTION: HELLO WORLD for the repo - himanshu-dixit/custom-repo-breaking"
+    const result = await agentExecutor.invoke({
         input: "Please create another github issue with the summary and description with the following details of another issue:- , " + JSON.stringify(body)
     });
 
-    res.json({ output: result.output });
+    console.log(result.output)
+}
       ```
     </CodeGroup>
 
 
+</Step>
+
+<Step title="Invoke your agent">
+
+<CodeGroup>
+      ```typescript  Invoke the agent
+      executeGithubAgent("himanshu")
+      ```
+    </CodeGroup>
+
+Tada🎉! It was this simple to create a powerful agent with composio and Langchain.
 </Step>
 
 <Step title="Complete code snippet">
 
 For complete reference for Langchain, visit [here](https://composiohq.github.io/composio-js/classes/frameworks_langchain.LangchainToolSet.html)
 
-View the full code snippet [here](https://github.com/ComposioHQ/composio-js/blob/main/examples/langchain/demo.ts)
+View the full code snippet [here](https://github.com/ComposioHQ/composio-js/blob/main/examples/langchain/sample.ts)
 </Step>
 </Steps>
 
