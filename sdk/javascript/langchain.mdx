@@ -28,6 +28,7 @@ async function setupUserConnectionIfNotExists(entityId) {
         const connection = await entity.getConnection('github');
 
         if (!connection) {
+            // If this entity/user hasn't already connected the account
             const connection = await entity.initiateConnection(appName);
             console.log("Log in via: ", connection.redirectUrl);
            return connection.waitUntilActive(60);
