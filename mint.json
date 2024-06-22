@@ -177,6 +177,8 @@
             "guides/examples/sql-agent",
             "guides/examples/commit-agent",
             "guides/examples/competitor-researcher",
+            "guides/examples/rag_agent",
+            "guides/examples/interpreter_agent",
             "guides/examples/news-summary",
             "guides/examples/calendar-agent"
         ]}
