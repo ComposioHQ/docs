@@ -115,33 +115,42 @@ This project is an example which uses Composio to help you keep your GitHub repo
     <Step title="Start a web server">
     Create a Flask web server to handle incoming webhooks:
         <CodeGroup>
-        ```python Web Server in flask
+        ```python Web Server in flask 
+        # Start a web server
         app = Flask(__name__)
 
-        @app.route('/webhook', methods=['POST'])
-        def webhook():
-            t_id = "your_trello_list_id_for_todos"  # Replace with your Trello list ID for TODOs
-            d_id = "your_trello_list_id_for_done"   # Replace with your Trello list ID for done tasks
+        # Create a trigger listener
+        listner = composio_toolset.create_trigger_listener()
 
+        @listner.callback(filters={"trigger_id": "github_commit"})
+        def agent(event: TriggerEventData) -> None:
+            # Task to add a card to `todo` list based on the commit patch
             task1 = Task(
-                description=f"""Given the following Github patch: {request.json}, create a TRELLO card (trello_create_trello_card) for the TODOs from code comments in the patch. TRELLO list (id:{t_id}).
+                description=f"""Given the following Github patch: {event.data}, create a TRELLO card (trello_create_trello_card) for the TODOs from code comments in the patch. TRELLO list (id:{trello_todo_list_id}).
                 Please read the patch carefully and create cards for the new TODOs only, avoid removed/old TODOs. Card name should reflect the todo comment present in code""",
                 expected_output="A TRELLO card created for the commit",
-                agent=crewai_agent,
+                agent=commit_agent,
             )
             task1.execute()
 
+            # Task to add a card to `done` list based on the commit patch
             task2 = Task(
-                description=f"""Given the following Github patch: {request.json}, create a TRELLO card (trello_create_trello_card) for the Commit Message in the patch. TRELLO list (id:{d_id})
+                description=f"""Given the following Github patch: {event.data}, create a TRELLO card (trello_create_trello_card) for the Commit Message in the patch. TRELLO list (id:{trello_done_list_id})
                 to add card. Create only if the commit message indicates that a task is completed.""",
                 expected_output="A TRELLO card created for the commit",
-                agent=crewai_agent,
+                agent=commit_agent,
             )
             task2.execute()
 
-            return 'Payload received and processed', 200
+        @app.route("/webhook", methods=["POST"])
+        def webhook():
+            # Trigger the event manually for testing
+            event_data = TriggerEventData(data=request.json)
+            agent(event_data)
+            return "Payload received and processed", 200
 
-        if __name__ == '__main__':
+        if __name__ == "__main__":
+            listner.listen()
             app.run(port=2000, debug=True)
         ```
 
@@ -152,15 +161,17 @@ This project is an example which uses Composio to help you keep your GitHub repo
 ## Putting it All Together
 <CodeGroup>
     ```python Final Code
+    
     # Import necessary libraries
     import os
 
-    from composio_crewai import Action, App, ComposioToolSet
+    from composio.client.collections import TriggerEventData
+    from composio.tools import ComposioToolSet
+    from composio_crewai import Action, App
     from crewai import Agent, Task
     from dotenv import load_dotenv
     from flask import Flask, request
     from langchain_openai import ChatOpenAI
-
 
     # Load environment variables
     load_dotenv()
@@ -190,12 +201,14 @@ This project is an example which uses Composio to help you keep your GitHub repo
     # Start a web server
     app = Flask(__name__)
 
+    # Create a trigger listener
+    listner = composio_toolset.create_trigger_listener()
 
-    @app.route("/webhook", methods=["POST"])
-    def webhook():
+    @listner.callback(filters={"trigger_id": "github_commit"})
+    def agent(event: TriggerEventData) -> None:
         # Task to add a card to `todo` list based on the commit patch
         task1 = Task(
-            description=f"""Given the following Github patch: {request.json}, create a TRELLO card (trello_create_trello_card) for the TODOs from code comments in the patch. TRELLO list (id:{trello_todo_list_id}).
+            description=f"""Given the following Github patch: {event.data}, create a TRELLO card (trello_create_trello_card) for the TODOs from code comments in the patch. TRELLO list (id:{trello_todo_list_id}).
             Please read the patch carefully and create cards for the new TODOs only, avoid removed/old TODOs. Card name should reflect the todo comment present in code""",
             expected_output="A TRELLO card created for the commit",
             agent=commit_agent,
@@ -204,18 +217,23 @@ This project is an example which uses Composio to help you keep your GitHub repo
 
         # Task to add a card to `done` list based on the commit patch
         task2 = Task(
-            description=f"""Given the following Github patch: {request.json}, create a TRELLO card (trello_create_trello_card) for the Commit Message in the patch. TRELLO list (id:{trello_done_list_id})
+            description=f"""Given the following Github patch: {event.data}, create a TRELLO card (trello_create_trello_card) for the Commit Message in the patch. TRELLO list (id:{trello_done_list_id})
             to add card. Create only if the commit message indicates that a task is completed.""",
             expected_output="A TRELLO card created for the commit",
             agent=commit_agent,
         )
         task2.execute()
 
+    @app.route("/webhook", methods=["POST"])
+    def webhook():
+        # Trigger the event manually for testing
+        event_data = TriggerEventData(data=request.json)
+        agent(event_data)
         return "Payload received and processed", 200
 
-
     if __name__ == "__main__":
-        app.run(port=2000, debug=True)    
+        listner.listen()
+        app.run(port=2000, debug=True)
     ```
 
 </CodeGroup>
