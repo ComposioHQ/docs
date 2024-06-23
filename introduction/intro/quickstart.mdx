@@ -27,7 +27,7 @@ composio add github
 <Step title="Import python packages">
 Modify `OPENAIKEY` before executing it.
 <CodeGroup>
-```python Import Base Packages & Configure OpenAI Client
+```python python 
 from openai import OpenAI
 from composio_openai import ComposioToolSet, App, Action
 
@@ -38,14 +38,32 @@ openai_client = OpenAI(api_key="**\*\***OPENAIKEY**\*\***")
 composio_toolset = ComposioToolSet(api_key="**\*\***COMPOSIO_API_KEY**\*\***")
 
 ```
+```javascript javascript
+import { OpenAI } from "openai";
+import { OpenAIToolSet } from "composio-core";
+
+const openai_client = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
+
+const composio_toolset = new OpenAIToolSet({
+    apiKey: process.env.COMPOSIO_API_KEY
+});
+```
+
 </CodeGroup>
 </Step>
 
 <Step title="Fetch all Github actions via Composio">
   <CodeGroup>
-    ```python Fetch Actions
+    ```python python
 # Get GitHub tools that are pre-configured
 actions = composio_toolset.get_actions(actions=[Action.GITHUB_ACTIVITY_STAR_REPO_FOR_AUTHENTICATED_USER])
+    ```
+     ```javascript javascript
+const tools = await composio_toolset.get_actions({
+    actions: ["github_start_repo"]
+});
     ```
   </CodeGroup>
 </Step>
@@ -53,7 +71,7 @@ actions = composio_toolset.get_actions(actions=[Action.GITHUB_ACTIVITY_STAR_REPO
 <Step title="Using Function Call">
 
 <CodeGroup>
-```python Task to Action Selection
+```python python
 my_task = "Star a repo ComposioHQ/composio on GitHub"
 
 # Setup openai assistant
@@ -76,6 +94,19 @@ run = openai_client.beta.threads.runs.create(thread_id=thread.id,assistant_id=as
 
 ```
 
+```javascript javascript
+const instruction = "Star a repo ComposioHQ/composio on GitHub";
+
+const response = await openai_client.chat.completions.create({
+    model: "gpt-4-turbo",
+    messages: [{ role: "user", content: instruction }],
+    tools: tools,
+    tool_choice: "auto",
+});
+
+console.log(response.choices[0].message.tool_calls);
+await composio_toolset.handle_tool_call(response);
+```
 </CodeGroup>
 </Step>
 
