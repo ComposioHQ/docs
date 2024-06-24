@@ -11,9 +11,14 @@ description: "Use Composio to connect OpenAI Assistant to GitHub (via OAUTH2) to
 
 <Step title="Install Composio Package">
 <CodeGroup>
-```bash Install Composio SDK 
+```bash python 
 pip install composio_core 
 pip install composio_openai 
+```
+
+```javascript javascript
+npm install composio-core
+npm install openai
 ```
 </CodeGroup>
 </Step>
@@ -25,7 +30,7 @@ composio add github
 </CodeGroup>
 </Step>
 <Step title="Import python packages">
-Modify `OPENAIKEY` before executing it.
+Modify `OPENAIKEY` and `COMPOSIO_API_KEY` before executing it.
 <CodeGroup>
 ```python python 
 from openai import OpenAI
@@ -43,9 +48,9 @@ import { OpenAI } from "openai";
 import { OpenAIToolSet } from "composio-core";
 
 const openai_client = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
+    apiKey: process.env.OPENAIKEY
 });
-
+// Initialise the Composio Tool Set
 const composio_toolset = new OpenAIToolSet({
     apiKey: process.env.COMPOSIO_API_KEY
 });
@@ -61,9 +66,10 @@ const composio_toolset = new OpenAIToolSet({
 actions = composio_toolset.get_actions(actions=[Action.GITHUB_ACTIVITY_STAR_REPO_FOR_AUTHENTICATED_USER])
     ```
      ```javascript javascript
-const tools = await composio_toolset.get_actions({
-    actions: ["github_start_repo"]
-});
+     // Get GitHub tools that are pre-configured
+    const tools = await composio_toolset.get_actions({
+        actions: ["github_start_repo"]
+    });
     ```
   </CodeGroup>
 </Step>
@@ -97,6 +103,7 @@ run = openai_client.beta.threads.runs.create(thread_id=thread.id,assistant_id=as
 ```javascript javascript
 const instruction = "Star a repo ComposioHQ/composio on GitHub";
 
+// Initialise the Composio Tool Set
 const response = await openai_client.chat.completions.create({
     model: "gpt-4-turbo",
     messages: [{ role: "user", content: instruction }],
@@ -104,8 +111,6 @@ const response = await openai_client.chat.completions.create({
     tool_choice: "auto",
 });
 
-console.log(response.choices[0].message.tool_calls);
-await composio_toolset.handle_tool_call(response);
 ```
 </CodeGroup>
 </Step>
@@ -114,7 +119,7 @@ await composio_toolset.handle_tool_call(response);
 <Tabs>
 <Tab title="Default">
 <CodeGroup>
-```python Executing Selected Actions!
+```python python 
 # Execute Function calls
 response_after_tool_calls = composio_toolset.wait_and_handle_assistant_tool_calls(
     client=openai_client,
@@ -123,6 +128,14 @@ response_after_tool_calls = composio_toolset.wait_and_handle_assistant_tool_call
 )
 
 print(response_after_tool_calls)
+```
+
+```javascript javascript
+var resp = response.choices[0].message.tool_calls 
+console.log(resp);
+
+// Execute
+await composio_toolset.handle_tool_call(response);
 ```
 </CodeGroup>
 </Tab>
@@ -153,7 +166,7 @@ print(response_after_tool_calls)
 Replace `OPENAIKEY`.
 
 <CodeGroup>
-```python Complete Code
+```python python 
 ## Step 1
 #!pip install composio_core
 #!pip install composio_openai
@@ -200,5 +213,45 @@ response_after_tool_calls = composio_toolset.wait_and_handle_assistant_tool_call
 url = f"https://platform.openai.com/playground/assistants?assistant={assistant.id}&thread={thread.id}"
 print(f"Open this URL to see the assistant in action: {url}")
 print(response_after_tool_calls)
+```
+
+```javascript javascript
+// Importing necessary modules from the openai and composio-core packages
+import { OpenAI } from "openai";
+import { OpenAIToolSet } from "composio-core";
+
+// Initializing the OpenAI client with the API key from environment variables
+const openai_client = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
+
+// Initializing the Composio ToolSet with the API key from environment variables
+const composio_toolset = new OpenAIToolSet({
+    apiKey: process.env.COMPOSIO_API_KEY
+});
+
+// Fetching GitHub actions from Composio ToolSet
+const tools = await composio_toolset.get_actions({
+    actions: ["github_start_repo"]
+});
+
+// Defining the user instruction for the OpenAI model
+const instruction = "Star a repo ComposioHQ/composio on GitHub";
+
+// Creating a chat completion request to the OpenAI model
+const response = await openai_client.chat.completions.create({
+    model: "gpt-4-turbo",
+    messages: [{ role: "user", content: instruction }],
+    tools: tools,
+    tool_choice: "auto",
+});
+
+// Extracting tool calls from the response and logging them
+var resp = response.choices[0].message.tool_calls 
+console.log(resp);
+
+// Handling the tool call using Composio ToolSet
+await composio_toolset.handle_tool_call(response);
+
 ```
 </CodeGroup>
