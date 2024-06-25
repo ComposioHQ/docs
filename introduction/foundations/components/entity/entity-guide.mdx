@@ -24,10 +24,12 @@ composio_client = Composio(api_key="COMPOSIO_API_KEY")
 openai_client = OpenAI(api_key="******OPENAIKEY******")
 ```
 ```javascript javascript
-import { OpenAI } from "openai";
-import { OpenAIToolSet } from "composio-core";
 import dotenv from 'dotenv';
 dotenv.config();
+
+import { OpenAI } from "openai";
+import { OpenAIToolSet } from "composio-core";
+
 
 const toolset = new OpenAIToolSet({
     apiKey: process.env.COMPOSIO_API_KEY,

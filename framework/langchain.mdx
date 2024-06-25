@@ -53,6 +53,9 @@ These commands prepare your environment for seamless interaction between Langcha
   ```
   ```javascript javascript
   // Importing necessary modules from langchain and composio-core packages
+  import dotenv from 'dotenv';
+  dotenv.config();
+
   import { ChatOpenAI } from "@langchain/openai";
   import { createOpenAIFunctionsAgent, AgentExecutor } from "langchain/agents";
   import { LangchainToolSet } from "composio-core";
@@ -86,6 +89,7 @@ These commands prepare your environment for seamless interaction between Langcha
   ```javascript javascript
   // Initialize the LangchainToolSet with the API key from environment variables
   const toolset = new LangchainToolSet({ apiKey: process.env.COMPOSIO_API_KEY});
+  
   // Fetch tools configured for GitHub applications
   const tools = await toolset.get_tools({ apps: ["github"] });
   ```

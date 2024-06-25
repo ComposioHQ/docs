@@ -55,9 +55,11 @@ tools = tool_set.get_actions(actions=[Action.GITHUB_CREATE_ISSUE])
 print(tools)
 ```
 ```javascript javascript
-import { OpenAIToolSet } from "composio-core";
 import dotenv from 'dotenv';
 dotenv.config();
+
+import { OpenAIToolSet } from "composio-core";
+
 
 
 const toolset = new OpenAIToolSet({
@@ -130,9 +132,11 @@ tool_set.execute_action(
 )
 ```
 ```javascript javascript
-import { OpenAIToolSet } from "composio-core";
 import dotenv from 'dotenv';
 dotenv.config();
+
+import { OpenAIToolSet } from "composio-core";
+
 
 const toolset = new OpenAIToolSet({
     apiKey: process.env.COMPOSIO_API_KEY,
