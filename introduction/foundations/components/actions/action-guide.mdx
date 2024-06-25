@@ -38,13 +38,13 @@ Check out the coding guides provided in the examples section to have a better un
   </Tab>
 </Tabs>
 
-## Working with Actions
+## Working with Actions (Fetch and Execute)
 
 <Steps>
 <Step title="Fetch Actions">
-
+Get Action/s Input Schema
 <CodeGroup>
-```python Get Action/s Input Schema
+```python python
 
 from composio_openai import ComposioToolSet, Action
 
@@ -53,6 +53,21 @@ tool_set = ComposioToolSet()
 tools = tool_set.get_actions(actions=[Action.GITHUB_CREATE_ISSUE])
 
 print(tools)
+```
+```javascript javascript
+import dotenv from 'dotenv';
+dotenv.config();
+
+import { OpenAIToolSet } from "composio-core";
+
+
+
+const toolset = new OpenAIToolSet({
+    apiKey: process.env.COMPOSIO_API_KEY,
+});
+
+const tools = await toolset.get_actions({actions: ['github_issues_create']});
+console.log(tools)
 ```
 </CodeGroup>
 
@@ -101,8 +116,10 @@ The response will include the **Action's ID, Name and Input/Output schema** in *
 </Step>
 
 <Step title="Execute the action">
+
+Execute Action
 <CodeGroup>
-```python Execute Action
+```python python
 
 from composio import ComposioToolSet, Action
 
@@ -114,6 +131,27 @@ tool_set.execute_action(
     entity_id="melissa",
 )
 ```
+```javascript javascript
+import dotenv from 'dotenv';
+dotenv.config();
+
+import { OpenAIToolSet } from "composio-core";
+
+
+const toolset = new OpenAIToolSet({
+    apiKey: process.env.COMPOSIO_API_KEY,
+});
+
+toolset.execute_action({
+    action: 'slack_chat_post_message',
+    params: {
+        text: 'Hello, world!',
+        channel: 'D04N8SVQKKU'
+    },
+    entity_id: 'melissa'
+});
+```
+
 </CodeGroup>
 When executed successfully, action's response will be output. Output schema as returned by the /actions endpoint.
 </Step>
