@@ -46,10 +46,14 @@ composio_toolset = ComposioToolSet(api_key="**\*\***COMPOSIO_API_KEY**\*\***")
 ```javascript javascript
 import { OpenAI } from "openai";
 import { OpenAIToolSet } from "composio-core";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const openai_client = new OpenAI({
     apiKey: process.env.OPENAIKEY
 });
+
 // Initialise the Composio Tool Set
 const composio_toolset = new OpenAIToolSet({
     apiKey: process.env.COMPOSIO_API_KEY
@@ -65,6 +69,7 @@ const composio_toolset = new OpenAIToolSet({
 # Get GitHub tools that are pre-configured
 actions = composio_toolset.get_actions(actions=[Action.GITHUB_ACTIVITY_STAR_REPO_FOR_AUTHENTICATED_USER])
     ```
+
      ```javascript javascript
      // Get GitHub tools that are pre-configured
     const tools = await composio_toolset.get_actions({
@@ -219,6 +224,9 @@ print(response_after_tool_calls)
 // Importing necessary modules from the openai and composio-core packages
 import { OpenAI } from "openai";
 import { OpenAIToolSet } from "composio-core";
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // Initializing the OpenAI client with the API key from environment variables
 const openai_client = new OpenAI({
