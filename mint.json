@@ -170,18 +170,25 @@
       "pages": [
         "guides/examples/Example",
     {
-          "group": "Guides", 
+          "group": "Python Guides", 
           "pages":[
-            "guides/examples/investment-analyst",
-            "guides/examples/research-assistant",
-            "guides/examples/sql-agent",
-            "guides/examples/commit-agent",
-            "guides/examples/competitor-researcher",
-            "guides/examples/rag_agent",
-            "guides/examples/interpreter_agent",
-            "guides/examples/news-summary",
-            "guides/examples/calendar-agent"
-        ]}
+            "guides/examples/python/investment-analyst",
+            "guides/examples/python/research-assistant",
+            "guides/examples/python/sql-agent",
+            "guides/examples/python/commit-agent",
+            "guides/examples/python/competitor-researcher",
+            "guides/examples/python/rag_agent",
+            "guides/examples/python/interpreter_agent",
+            "guides/examples/python/news-summary",
+            "guides/examples/python/calendar-agent"
+        ]
+      },
+      {
+        "group":"Javascript Guides",
+        "pages":[
+          "guides/examples/javascript/interpreter-agent"
+        ]
+      }
         ]
     },
     {
