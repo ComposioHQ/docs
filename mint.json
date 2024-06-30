@@ -81,7 +81,7 @@
   ],
   "anchors": [
     {
-      "name": "SDK",
+      "name": "Python and JS SDK",
       "icon": "terminal",
       "url": "sdk"
     },
@@ -172,31 +172,25 @@
     {
           "group": "Python Guides", 
           "pages":[
-            "guides/examples/python/investment-analyst",
-            "guides/examples/python/research-assistant",
-            "guides/examples/python/sql-agent",
-            "guides/examples/python/commit-agent",
-            "guides/examples/python/competitor-researcher",
-            "guides/examples/python/rag_agent",
-            "guides/examples/python/interpreter_agent",
-            "guides/examples/python/news-summary",
-            "guides/examples/python/calendar-agent"
+            "guides/python/investment-analyst",
+            "guides/python/research-assistant",
+            "guides/python/sql-agent",
+            "guides/python/commit-agent",
+            "guides/python/competitor-researcher",
+            "guides/python/rag_agent",
+            "guides/python/interpreter_agent",
+            "guides/python/news-summary",
+            "guides/python/calendar-agent"
         ]
       },
       {
         "group":"Javascript Guides",
         "pages":[
-          "guides/examples/javascript/interpreter-agent"
+          "guides/javascript/interpreter-agent"
         ]
       }
         ]
-    },
-    {
-      "group": "Gallery",
-      "pages":[
-        "guides/starterprojects/gallery"
-      ]
-    },
+    }, 
     {
       "group": "Tools",
       "pages": [
