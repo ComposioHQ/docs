@@ -135,7 +135,6 @@
     {
       "group": "Pricing",
       "pages": [
-        "introduction/pricing/pricing",
         "introduction/pricing/startups-program"
       ]
     },    
@@ -194,7 +193,6 @@
     {
       "group": "Tools",
       "pages": [
-        "apps/list",
         {
           "group":"Apps",
           "pages":[
