@@ -61,6 +61,12 @@
       "name": "SDK",
       "url": "sdk"
     },
+
+    {
+      "name": "Guides",
+      "url": "patterns"
+    },
+
     {
       "name": "Examples",
       "url": "guides"
@@ -165,6 +171,16 @@
       ]
     },
     {
+      "group": "Guides",
+      "pages": [
+        "patterns/usecase",
+        "patterns/specific-triggers",
+        "patterns/multiple-users",
+        "patterns/tool-finding",
+        "patterns/listing-connections"
+      ]
+    }, 
+    {
       "group": "Examples",
       "pages": [
         "guides/examples/Example",
@@ -189,7 +205,8 @@
         ]
       }
         ]
-    }, 
+    },
+    
     {
       "group": "Tools",
       "pages": [
