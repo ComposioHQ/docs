@@ -117,8 +117,8 @@ To set up triggers, follow these steps:
 listener = composio_toolset.create_trigger_listener() 
 ## Triggers when a new event has taken place
 @listener.callback(filters={"trigger_name": "trigger_name"}) 
-
-#### Your Code Here ####
+def callback_function(event):
+    ## Your Code Here ##
 
 listener.listen()
 ```
