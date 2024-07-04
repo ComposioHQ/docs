@@ -28,7 +28,7 @@ Once you have the entity, you can manage the connected accounts. If an account i
 
 To get the connected accounts for an entity, you can use the following code:
 <CodeGroup>
-```python
+```python python
 
 try:
     connected_account  = entity.get_connection(app="slack")
@@ -43,7 +43,7 @@ This code attempts to retrieve the connected account for Slack. If no connected 
 
 Composio allows you to perform actions on behalf of users. For example, you can fetch all available actions that can be performed on GitHub:
 <CodeGroup>
-```python
+```python python
 
 actions = entity.get_actions(app_name=App.GITHUB)
 ```
@@ -51,7 +51,7 @@ actions = entity.get_actions(app_name=App.GITHUB)
 
 With the actions fetched, you can configure an agent to perform tasks on GitHub on behalf of the user. Here’s an example:
 <CodeGroup>
-```python
+```python python
 
 from composio_openai import ComposioToolSet, App
 from openai import OpenAI

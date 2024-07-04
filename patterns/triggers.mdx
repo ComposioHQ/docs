@@ -33,13 +33,13 @@ selected_app = App.GITHUB  # The app you are working with
 trigger_name = "github_commit_event"  # Trigger name from Composio UI
 trigger_config = {"owner": "ComposioHQ", "repo": "composio"}  # Trigger config from Composio UI
 ```
-<CodeGroup>
+</CodeGroup>
 
 ### Step 3: Retrieve User Entity and Connection
 
 Get the user entity and check the connection to the specified app.
 <CodeGroup>
-```python
+```python python
 entity = composio_client.get_entity(id=entity_id)
 connected_account = entity.get_connection(app=selected_app)  # Get connected account
 ```
@@ -50,7 +50,7 @@ connected_account = entity.get_connection(app=selected_app)  # Get connected acc
 Fetch the trigger using its name and verify if it exists.
 
 <CodeGroup>
-```python
+```python python
 
 triggers = composio_client.triggers.get(trigger_ids=[trigger_name])  # Get the triggers
 
@@ -62,7 +62,7 @@ if len(triggers) == 0:
 ### Step 5: Check for Active Triggers
 Check if the trigger is already enabled for the user.
 
-```python
+```python python
 active_triggers = composio_client.active_triggers.get(
     trigger_names=[trigger_name], connected_account_ids=[connected_account.id]
 )
@@ -78,7 +78,7 @@ if len(active_triggers) > 0:
 Enable the trigger for the user with the specified configuration.
 
 <CodeGroup>
-```python
+```python python
 print("Trigger config - ", trigger_config)
 
 entity.enable_trigger(
