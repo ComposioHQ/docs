@@ -173,12 +173,28 @@
     {
       "group": "Guides",
       "pages": [
-        "patterns/usecase",
-        "patterns/triggers",
-        "patterns/multiple-users",
-        "patterns/tool-finding",
-        "patterns/listing-connections"
-      ]
+      {
+        "group": "Patterns",
+        "pages": [
+          "patterns/functions/multiple-users",
+          "patterns/functions/triggers"
+        ]
+      },
+      {
+        "group": "How Tos",
+        "pages": [
+          "patterns/howtos/usecase",
+          "patterns/howtos/tool-finding",
+          "patterns/howtos/listing-connections"
+        ] 
+      },
+      {
+        "group": "Going to Production",
+        "pages": [
+          "patterns/production-guide/prod"
+        ]
+      }
+    ]
     }, 
     {
       "group": "Examples",

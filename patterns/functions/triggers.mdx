@@ -1,6 +1,6 @@
 ---
 title: "Enabling a Specific Trigger for a User in Composio"
-sidebarTitle: "Enabling a Specific Trigger for a User in Composio"
+sidebarTitle: "Specific Triggers for a User"
 icon: "webhook"
 description: "This guide provides step-by-step instructions for enabling a specific trigger for a user in Composio. We'll demonstrate how to turn on the GitHub commit hook for a single user, ensuring the necessary connection is established."
 ---
@@ -61,7 +61,7 @@ if len(triggers) == 0:
 
 ### Step 5: Check for Active Triggers
 Check if the trigger is already enabled for the user.
-
+<CodeGroup>
 ```python python
 active_triggers = composio_client.active_triggers.get(
     trigger_names=[trigger_name], connected_account_ids=[connected_account.id]
