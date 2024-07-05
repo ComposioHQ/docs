@@ -2,7 +2,7 @@
 title: "Enabling a Specific Trigger for a User in Composio"
 sidebarTitle: "Specific Triggers for a User"
 icon: "webhook"
-description: "This guide provides step-by-step instructions for enabling a specific trigger for a user in Composio. We'll demonstrate how to turn on the GitHub commit hook for a single user, ensuring the necessary connection is established."
+description: "This guide provides step-by-step instructions for enabling a specific trigger for a user in Composio."
 ---
 
 ### Prerequisites
@@ -20,6 +20,13 @@ from composio import Composio, App
 
 composio_client = Composio(api_key="API_KEY")
 ```
+```javascript javascript
+import { OpenAIToolSet } from "composio-core";
+
+const toolset = new OpenAIToolSet({
+    apiKey: process.env.COMPOSIO_API_KEY,
+});
+```
 </CodeGroup>
 
 ### Step 2: Define User and Trigger Information
@@ -27,12 +34,18 @@ composio_client = Composio(api_key="API_KEY")
 Specify the user and trigger details. Replace entity_id and selected_app with the relevant user ID and app.
 <CodeGroup>
 ```python python
-
 entity_id = "soham"  # Unique user identifier in your app
 selected_app = App.GITHUB  # The app you are working with
 trigger_name = "github_commit_event"  # Trigger name from Composio UI
 trigger_config = {"owner": "ComposioHQ", "repo": "composio"}  # Trigger config from Composio UI
 ```
+```javascript javascript
+const entity_id = "soham"  // Unique user identifier in your app
+const selected_app = App.GITHUB  // The app you are working with
+const trigger_name = "github_commit_event"  // Trigger name from Composio UI
+const trigger_config = {"owner": "ComposioHQ", "repo": "composio"}  // Trigger config from Composio UI
+```
+
 </CodeGroup>
 
 ### Step 3: Retrieve User Entity and Connection
@@ -43,6 +56,10 @@ Get the user entity and check the connection to the specified app.
 entity = composio_client.get_entity(id=entity_id)
 connected_account = entity.get_connection(app=selected_app)  # Get connected account
 ```
+```javascript javascript
+const entity = await toolset.client.getEntity(id=entity_id);
+const connected_account = entity.getConnection(app=selected_app);  // Get connected account
+```
 </CodeGroup>
 
 
@@ -51,11 +68,17 @@ Fetch the trigger using its name and verify if it exists.
 
 <CodeGroup>
 ```python python
-
 triggers = composio_client.triggers.get(trigger_ids=[trigger_name])  # Get the triggers
 
 if len(triggers) == 0:
     raise Exception("Trigger not found")  # Handle incorrect trigger name
+```
+```javascript javascript
+const triggers = await toolset.client.triggers.get(trigger_ids=[trigger_name]);  // Get the triggers
+
+if (triggers.length === 0) {
+    throw new Error("Trigger not found");  // Handle incorrect trigger name
+}
 ```
 </CodeGroup>
 
@@ -70,7 +93,6 @@ active_triggers = composio_client.active_triggers.get(
 if len(active_triggers) > 0:
     print(f"Trigger {trigger_name} is already enabled")
     exit()
-
 ```
 </CodeGroup>
 

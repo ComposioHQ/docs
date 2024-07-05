@@ -2,7 +2,7 @@
 title: "Managing Multiple Users and Their Authentication with Composio"
 sidebarTitle: "Managing Multiple Users"
 icon: "plug"
-description: "Managing multiple users and their associated accounts can be a daunting task, especially when it comes to maintaining security and efficient administration. Composio simplifies this process by using entities to represent users and organizations, consolidating their accounts under a single management umbrella. This page will walk you through the basics of managing multiple users and their authentication using Composio."
+description: "This section will walk you through the basics of managing multiple users and their authentication using Composio."
 ---
 
 ### Introduction to Entities
@@ -20,6 +20,14 @@ from composio import Composio
 composio_client = Composio(api_key="COMPOSIO_API_KEY")
 entity = composio_client.get_entity(id='user_email_id')
 ```
+```javascript javascript
+import { OpenAIToolSet } from "composio-core";
+
+const openai_client = new OpenAI({
+    apiKey: process.env.OPENAIKEY
+});
+const entity = await toolset.client.getEntity(id='user_email_id');
+```
 </CodeGroup>
 
 Once you have the entity, you can manage the connected accounts. If an account is not connected, you can prompt the user to connect their account.
@@ -29,12 +37,13 @@ Once you have the entity, you can manage the connected accounts. If an account i
 To get the connected accounts for an entity, you can use the following code:
 <CodeGroup>
 ```python python
-
 try:
     connected_account  = entity.get_connection(app="slack")
 except Exception as e:
     print("No connected account found")
-
+```
+```javascript javascript
+const connected_account  = await entity.getConnection("slack");
 ```
 </CodeGroup>
 This code attempts to retrieve the connected account for Slack. If no connected account is found, it catches the exception and prints a message.
@@ -44,8 +53,10 @@ This code attempts to retrieve the connected account for Slack. If no connected 
 Composio allows you to perform actions on behalf of users. For example, you can fetch all available actions that can be performed on GitHub:
 <CodeGroup>
 ```python python
-
 actions = entity.get_actions(app_name=App.GITHUB)
+```
+```javascript javascript
+const actions = entity.getActions(app_name=App.GITHUB);
 ```
 </CodeGroup>
 
@@ -71,7 +82,29 @@ response = openai_client.chat.completions.create(
     ],
 )
 tool_set.handle_tool_calls(response=response, entity_id="melissa")
+```
+```javascript javascript
+import { OpenAI } from "openai";
+import { OpenAIToolSet } from "composio-core";
 
+const toolset = new OpenAIToolSet({
+    apiKey: process.env.COMPOSIO_API_KEY,
+});
+
+const tools = await toolset.get_actions({actions: ['github_star_repo']})
+
+const task = "Star a repo ComposioHQ/composio on GitHub"
+
+const response = await toolset.client.chat.completions.create({
+    model: "gpt-4-turbo-preview",
+    tools: tools,
+    messages: [
+        {role: "system", content: "You are a helpful assistant."},
+        {role: "user", content: task},
+    ],
+});
+
+await toolset.handle_tool_call(response, entity.id="melissa");
 ```
 </CodeGroup>
 
