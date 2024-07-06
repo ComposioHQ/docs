@@ -61,6 +61,12 @@
       "name": "SDK",
       "url": "sdk"
     },
+
+    {
+      "name": "Guides",
+      "url": "patterns"
+    },
+
     {
       "name": "Examples",
       "url": "guides"
@@ -165,6 +171,32 @@
       ]
     },
     {
+      "group": "Guides",
+      "pages": [
+      {
+        "group": "Patterns",
+        "pages": [
+          "patterns/functions/multiple-users",
+          "patterns/functions/triggers"
+        ]
+      },
+      {
+        "group": "How Tos",
+        "pages": [
+          "patterns/howtos/usecase",
+          "patterns/howtos/tool-finding",
+          "patterns/howtos/listing-connections"
+        ] 
+      },
+      {
+        "group": "Going to Production",
+        "pages": [
+          "patterns/production-guide/prod"
+        ]
+      }
+    ]
+    }, 
+    {
       "group": "Examples",
       "pages": [
         "guides/examples/Example",
@@ -189,7 +221,8 @@
         ]
       }
         ]
-    }, 
+    },
+    
     {
       "group": "Tools",
       "pages": [
