@@ -133,7 +133,9 @@
         "framework/openai",
         "framework/julep",
         "framework/griptape",
-        "framework/llamaindex"
+        "framework/llamaindex",
+        "framework/camelai",
+        "framework/praisonai"
       ]
     }
       ]
