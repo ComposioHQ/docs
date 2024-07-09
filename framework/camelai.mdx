@@ -1,5 +1,5 @@
 ---
-title: "🐪 Using Composio With CamelAI"
+title: "🐪 Using Composio With Camel-AI"
 sidebarTitle: "Camel SDK"
 icon: "robot"
 description: "Integrate Composio with Camel agents to let them seamlessly interact with external apps"
@@ -11,7 +11,7 @@ description: "Integrate Composio with Camel agents to let them seamlessly intera
 
 ### Install Packages & Connect a Tool
 
-Ensure you have the necessary packages installed and connect your GitHub account to allow your CamelAI agents to utilize GitHub functionalities.
+Ensure you have the necessary packages installed and connect your GitHub account to allow your Camel-AI agents to utilize GitHub functionalities.
 <CodeGroup>
     ``` bash Run command
     pip install camel-ai
@@ -108,11 +108,11 @@ Execute the following code to excute the agent, ensuring that the intended task 
 <CodeGroup>
     ```python Camel Agent Execution
     prompt = (
-        "I have craeted a new Github Repo,"
+        "I have created a new Github Repo,"
         "Please star my github repository: camel-ai/camel"
     )
     user_msg = BaseMessage.make_user_message(role_name="User", content=prompt)
-    print(Fore.YELLOW + f"user prompt:\n{prompt}\n")
+    print(Fore.YELLOW + f"User prompt:\n{prompt}\n")
 
     response = agent.step(user_msg)
     for msg in response.msgs:
