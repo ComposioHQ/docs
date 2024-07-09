@@ -44,9 +44,9 @@ Prepare your environment by initializing necessary imports from Praison and sett
 
 </Step>
 
-<Step title="Write the Praison-supported Composio Tools ins `tools.py` file.">
+<Step title="Write the Praison-supported Composio Tools in `tools.py` file.">
 
-This step involves fetching and integrating GitHub tools provided by Composio, and writing them in Praison supported Format, returning the name of tools in a format, taht should be added to `agents.yml` file.
+This step involves fetching and integrating GitHub tools provided by Composio, and writing them in Praison supported Format, returning the name of tools in a format, that should be added to `agents.yml` file.
 
 <CodeGroup>
     ```python Write the tools
@@ -61,7 +61,7 @@ This step involves fetching and integrating GitHub tools provided by Composio, a
 
 </Step>
 
-<Step title="Define the 'agents_yml` eiter in a separate file, or in your script.">
+<Step title="Define the 'agents_yml` either in a separate file, or in your script.">
 
 This step involves configuring and executing the agent to carry out actions, such as starring a GitHub repository.
 
@@ -69,17 +69,17 @@ This step involves configuring and executing the agent to carry out actions, suc
     ```python Define agent.yml
     agent_yaml = """
     framework: "crewai"
-    topic: "Github Mangement"
+    topic: "Github Management"
 
     roles:
       developer:
         role: "Developer"
         goal: "An expert programmer"
-        backstory: "A developer exploring new codebases and have certain tools available to execute different tasks."
+        backstory: "A developer exploring new codebases and having certain tools available to execute different tasks."
         tasks:
           star_github:
             description: "Star a repo ComposioHQ/composio on GitHub"
-            expected_output: "Response wheather the task was executed."
+            expected_output: "Response whether the task was executed."
     """ + tool_section_str
 
     print(agent_yaml)
