@@ -102,7 +102,7 @@ composio/
 <CodeGroup>
    ```python Defines an action for your tool
    from pydantic import BaseModel, Field
-   from composio.core.local import Action
+   from composio.tools.local.base import Action
 
    class <RequestSchema>(BaseModel):
        # Define input schema for your action
