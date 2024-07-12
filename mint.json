@@ -134,7 +134,7 @@
         "framework/julep",
         "framework/griptape",
         "framework/llamaindex",
-        "framework/CAMELAI",
+        "framework/camelai",
         "framework/praisonai"
       ]
     }
