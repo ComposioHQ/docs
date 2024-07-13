@@ -135,7 +135,8 @@
         "framework/griptape",
         "framework/llamaindex",
         "framework/camelai",
-        "framework/praisonai"
+        "framework/praisonai",
+        "framework/langgraph"
       ]
     }
       ]
