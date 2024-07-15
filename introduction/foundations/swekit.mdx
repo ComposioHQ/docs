@@ -1,0 +1,161 @@
+---
+title: "Swe Kit"
+sidebarTitle: "Swe Kit"
+icon: "briefcase"
+description: "This page provides basics of using SWE Kit to build, optimize, and benchmark Software Engineering agents with the Composio tooling ecosystem."
+---
+
+
+## Introduction to Swe Kit
+**SWE Kit** is a framework for building Software Engineering (SWE) agents using the Composio tooling ecosystem. SWE Kit allows you to:
+
+- Scaffold agents that work out-of-the-box with your chosen agentic framework (e.g., **crewai**, **llamaindex**).
+- Add or optimize your agent's abilities using various tools.
+- Benchmark your agents against **SWE-Bench**.
+
+
+## How to get started?
+
+### Installation
+Ensure Python 3.8 or higher is installed on your system. You need pip available to install packages from PyPI.
+
+
+<Steps>
+
+    <Step title="Install SWE Kit and Composio Package">
+
+        <CodeGroup>
+            ```bash Installing SWE Kit and Core Package
+            pip install swekit composio-core
+            ```
+        </CodeGroup>
+
+    </Step>
+
+    <Step title="Install the Agentic Framework and Composio Plugin">
+
+        <CodeGroup>
+        ```bash Composio-CrewAI installation
+        # Installation for CrewAI
+        pip install crewai composio-crewai
+        ```
+        </CodeGroup>
+
+    </Step>
+
+    <Step title="Authenticate your github account using CLI">
+
+        <CodeGroup>
+            ```bash Authenticate your Github Account 
+            composio add github
+            ```
+        </CodeGroup>
+
+    </Step>
+
+    <Step title="Set Up Your GitHub Access Token">
+    SWE Kit requires a GitHub access token to interact with your repositories. Create one [here](https://github.com/settings/tokens) with the necessary permissions and set it as an environment variable:
+
+        <CodeGroup>
+            ```bash Export Github Access Token
+            export GITHUB_ACCESS_TOKEN=<your_token>
+            ```
+        </CodeGroup>
+
+    </Step>
+
+    <Step title="Configure Your LLM API Key">
+    You need to setup API key for the LLM provider you're planning to use. By default the agents scaffolded by **swekit** uses **openai client**, but you can use any other llm too.
+
+        <CodeGroup>
+            ```bash Export OpenAI API Key
+            export OPENAI_API_KEY=<your_openai_api_key>
+            ```
+        </CodeGroup>
+
+    </Step>
+
+</Steps>
+
+
+### Creating a New Agent
+To scaffold a new agent, use the following command:
+
+<CodeGroup>
+    ```bash Scaffold a new agent using CrewAI
+    swekit scaffold crewai -o <path>
+    ```
+</CodeGroup>
+
+This will create a new agent in `<path>/agent` with four key files:
+
+- `main.py`: Entry point to run the agent on your issue.
+- `agent.py`: Agent definition (customize this to change behavior).
+- `prompts.py`: Agent prompts.
+- `benchmark.py`: SWE-Bench benchmark runner.
+- `inputs.py`: Handles user inputs, validating GitHub repository names and issues, and fetching issue details from GitHub.
+
+
+### Run the Agent
+Navigate to the agent directory and run the agent:
+
+<CodeGroup>
+    ```bash Run the agent
+    cd <path>/agent
+    python main.py
+    ```
+</CodeGroup>
+
+You'll be prompted for the repository name and issue.
+
+
+## Docker Environment
+The SWE-agent runs in Docker by default for security and isolation, sandboxing the agent's operations to protect against unintended consequences of arbitrary code execution.
+
+To run the agent locally instead of in Docker, modify the `workspace_env` in `agent/agent.py`.
+
+<CodeGroup>
+    ```python agent/agent.py
+    # Change the workspace_env to ExecEnv.HOST to run the agent locally
+    composio_toolset = ComposioToolSet(workspace_env=ExecEnv.HOST)
+    ```
+</CodeGroup>
+
+<Warning>Be cautious, as this bypasses Docker's protective layer.</Warning>
+
+
+## Running the Benchmark
+[SWE-Bench](https://www.swebench.com/) is a comprehensive benchmark designed to evaluate the performance of software engineering agents. It includes a diverse collection of real-world issues from popular Python open-source projects, providing a robust testing environment.
+
+To run the benchmark:
+
+<Steps>
+
+    <Step title="Requirements">
+        Ensure Docker is installed and running on your system.
+    </Step>
+
+    <Step title="Execute the following command">
+
+        <CodeGroup>
+            ```bash Run the benchmark
+            cd <path>/agent
+            python benchmark.py --test-split=<test_split>
+            ```
+        </CodeGroup>
+
+        - By default, `python benchmark.py` runs only 1 test instance.
+        - Specify a test split ratio to run more tests, e.g., `--test-split=1:300` runs 300 tests.
+
+    </Step>
+
+</Steps>
+
+<Info>We use [SWE-Bench-Docker](https://github.com/aorwall/SWE-bench-docker) to ensure each test instance runs in an isolated container with its specific environment and Python version.</Info>
+
+
+## Conclusion
+SWE Kit is a powerful framework for building, optimizing, and benchmarking software engineering agents with ease. With tools for scaffolding, integrating with various frameworks, and performance testing, SWE Kit simplifies agent development and enhances productivity.
+
+
+
