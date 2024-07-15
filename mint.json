@@ -61,17 +61,14 @@
       "name": "SDK",
       "url": "sdk"
     },
-
     {
       "name": "Guides",
       "url": "patterns"
     },
-
     {
       "name": "Examples",
       "url": "guides"
     },
-
     {
       "name": "API",
       "url": "api-reference"
@@ -146,7 +143,7 @@
       "pages": [
         "introduction/pricing/startups-program"
       ]
-    },    
+    },
     {
       "group": "Python SDK",
       "pages": [
@@ -156,7 +153,7 @@
         "sdk/python/local_tools"
       ]
     },
-        {
+    {
       "group": "JS SDK",
       "pages": [
         "sdk/javascript/introduction",
@@ -177,36 +174,36 @@
     {
       "group": "Guides",
       "pages": [
-      {
-        "group": "Patterns",
-        "pages": [
-          "patterns/functions/multiple-users",
-          "patterns/functions/triggers"
-        ]
-      },
-      {
-        "group": "How Tos",
-        "pages": [
-          "patterns/howtos/usecase",
-          "patterns/howtos/tool-finding",
-          "patterns/howtos/listing-connections"
-        ] 
-      },
-      {
-        "group": "Going to Production",
-        "pages": [
-          "patterns/production-guide/prod"
-        ]
-      }
-    ]
-    }, 
+        {
+          "group": "Patterns",
+          "pages": [
+            "patterns/functions/multiple-users",
+            "patterns/functions/triggers"
+          ]
+        },
+        {
+          "group": "How Tos",
+          "pages": [
+            "patterns/howtos/usecase",
+            "patterns/howtos/tool-finding",
+            "patterns/howtos/listing-connections"
+          ]
+        },
+        {
+          "group": "Going to Production",
+          "pages": [
+            "patterns/production-guide/prod"
+          ]
+        }
+      ]
+    },
     {
       "group": "Examples",
       "pages": [
         "guides/examples/Example",
-    {
-          "group": "Python Guides", 
-          "pages":[
+        {
+          "group": "Python Guides",
+          "pages": [
             "guides/python/investment-analyst",
             "guides/python/research-assistant",
             "guides/python/sql-agent",
@@ -216,121 +213,120 @@
             "guides/python/interpreter_agent",
             "guides/python/news-summary",
             "guides/python/calendar-agent"
-        ]
-      },
-      {
-        "group":"Javascript Guides",
-        "pages":[
-          "guides/javascript/interpreter-agent"
-        ]
-      }
-        ]
+          ]
+        },
+        {
+          "group": "Javascript Guides",
+          "pages": [
+            "guides/javascript/interpreter-agent"
+          ]
+        }
+      ]
     },
-    
     {
       "group": "Tools",
       "pages": [
         {
-          "group":"Apps",
-          "pages":[
-                 
-        "apps/accelo",
-        "apps/adobe",
-        "apps/amazon",
-        "apps/amplitude",
-        "apps/apify",
-        "apps/ashby",
-        "apps/asana",
-        "apps/atlassian",
-        "apps/attio",
-        "apps/auth0",
-        "apps/bamboohr",
-        "apps/battle-net",
-        "apps/bitbucket",
-        "apps/blackbaud",
-        "apps/boldsign",
-        "apps/box",
-        "apps/braintree",
-        "apps/calendly",
-        "apps/clickup",
-        "apps/close",
-        "apps/deel",
-        "apps/discord",
-        "apps/dropbox",
-        "apps/epic-games",
-        "apps/eventbrite",
-        "apps/facebook",
-        "apps/figma",
-        "apps/freshbooks",
-        "apps/freshdesk",
-        "apps/front",
-        "apps/github",
-        "apps/gitlab",
-        "apps/gmail",
-        "apps/google-calendar",
-        "apps/google-docs",
-        "apps/google-drive",
-        "apps/google-sheets",
-        "apps/gorgias",
-        "apps/gumroad",
-        "apps/guru",
-        "apps/hackerrank-work",
-        "apps/harvest",
-        "apps/heroku",
-        "apps/highlevel",
-        "apps/hubspot",
-        "apps/intercom",
-        "apps/jira",
-        "apps/keap",
-        "apps/klaviyo",
-        "apps/linkhut",
-        "apps/linear",
-        "apps/mailchimp",
-        "apps/miro",
-        "apps/mixpanel",
-        "apps/monday",
-        "apps/mural",
-        "apps/notion",
-        "apps/okta",
-        "apps/one-drive",
-        "apps/pagerduty",
-        "apps/pandadoc",
-        "apps/pipedrive",
-        "apps/reddit",
-        "apps/sage",
-        "apps/salesforce",
-        "apps/servicem8",
-        "apps/shopify",
-        "apps/slack",
-        "apps/smugmug",
-        "apps/splitwise",
-        "apps/spotify",
-        "apps/stack-exchange",
-        "apps/strava",
-        "apps/survey-monkey",
-        "apps/taskade",
-        "apps/timely",
-        "apps/todoist",
-        "apps/trello",
-        "apps/twitch",
-        "apps/twitter",
-        "apps/typeform",
-        "apps/wakatime",
-        "apps/wave-accounting",
-        "apps/workable",
-        "apps/xero",
-        "apps/yandex",
-        "apps/youtube",
-        "apps/zendesk",
-        "apps/zoho",
-        "apps/zoho-bigin",
-        "apps/zoho-books",
-        "apps/zoho-desk",
-        "apps/zoho-invoice",
-        "apps/zoho-inventory",
-        "apps/zoho-mail",
-        "apps/zoom"
-        ]},
+          "group": "Apps",
+          "pages": [
+            "apps/accelo",
+            "apps/adobe",
+            "apps/amazon",
+            "apps/amplitude",
+            "apps/apify",
+            "apps/ashby",
+            "apps/asana",
+            "apps/atlassian",
+            "apps/attio",
+            "apps/auth0",
+            "apps/bamboohr",
+            "apps/battle-net",
+            "apps/bitbucket",
+            "apps/blackbaud",
+            "apps/boldsign",
+            "apps/box",
+            "apps/braintree",
+            "apps/calendly",
+            "apps/clickup",
+            "apps/close",
+            "apps/deel",
+            "apps/discord",
+            "apps/dropbox",
+            "apps/epic-games",
+            "apps/eventbrite",
+            "apps/facebook",
+            "apps/figma",
+            "apps/freshbooks",
+            "apps/freshdesk",
+            "apps/front",
+            "apps/github",
+            "apps/gitlab",
+            "apps/gmail",
+            "apps/google-calendar",
+            "apps/google-docs",
+            "apps/google-drive",
+            "apps/google-sheets",
+            "apps/gorgias",
+            "apps/gumroad",
+            "apps/guru",
+            "apps/hackerrank-work",
+            "apps/harvest",
+            "apps/heroku",
+            "apps/highlevel",
+            "apps/hubspot",
+            "apps/intercom",
+            "apps/jira",
+            "apps/keap",
+            "apps/klaviyo",
+            "apps/linkhut",
+            "apps/linear",
+            "apps/mailchimp",
+            "apps/miro",
+            "apps/mixpanel",
+            "apps/monday",
+            "apps/mural",
+            "apps/notion",
+            "apps/okta",
+            "apps/one-drive",
+            "apps/pagerduty",
+            "apps/pandadoc",
+            "apps/pipedrive",
+            "apps/reddit",
+            "apps/sage",
+            "apps/salesforce",
+            "apps/servicem8",
+            "apps/shopify",
+            "apps/slack",
+            "apps/smugmug",
+            "apps/splitwise",
+            "apps/spotify",
+            "apps/stack-exchange",
+            "apps/strava",
+            "apps/survey-monkey",
+            "apps/taskade",
+            "apps/timely",
+            "apps/todoist",
+            "apps/trello",
+            "apps/twitch",
+            "apps/twitter",
+            "apps/typeform",
+            "apps/wakatime",
+            "apps/wave-accounting",
+            "apps/workable",
+            "apps/xero",
+            "apps/yandex",
+            "apps/youtube",
+            "apps/zendesk",
+            "apps/zoho",
+            "apps/zoho-bigin",
+            "apps/zoho-books",
+            "apps/zoho-desk",
+            "apps/zoho-invoice",
+            "apps/zoho-inventory",
+            "apps/zoho-mail",
+            "apps/zoom"
+          ]
+        },
         {
           "group": "Usecases",
           "pages": [
@@ -533,8 +529,8 @@
               ]
             },
             {
-              "group":"Autogen",
-              "pages":[
+              "group": "Autogen",
+              "pages": [
                 "apps/usecases/autogen_blogs/ably",
                 "apps/usecases/autogen_blogs/active-compaign",
                 "apps/usecases/autogen_blogs/adobe",
@@ -731,8 +727,8 @@
               ]
             },
             {
-              "group":"Crewai",
-              "pages":[
+              "group": "Crewai",
+              "pages": [
                 "apps/usecases/crewai/ably",
                 "apps/usecases/crewai/accelo",
                 "apps/usecases/crewai/active-compaign",
