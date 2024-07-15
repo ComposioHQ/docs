@@ -11,13 +11,15 @@ description: "Integrate Composio with PraisonAI agents to let them seamlessly in
 
 ### Install Packages & Connect a Tool
 
-These commands prepare your environment for seamless interaction between PraisonAI and Github.
+These commands prepare your environment for seamless interaction between PraisonAI and GitHub.
 
 <CodeGroup>
     ``` bash Run command
     pip install PraisonAI -q
     pip install composio-praisonai
-    # Connect your Github so agents can use it. 
+    # login to composio
+    composio login
+    # Connect your GitHub using command below, so agents can use it. 
     composio add github
     # Check all different apps which you can connect with
     composio apps
@@ -29,7 +31,7 @@ These commands prepare your environment for seamless interaction between Praison
 <Steps>
 <Step title="Import Base Packages">
 
-Prepare your environment by initializing necessary imports from Praison and setting up your client.
+Prepare your environment by initializing necessary imports from PraisonAI and setting up your client.
 
 <CodeGroup>
     ```python Default Imports
@@ -46,7 +48,7 @@ Prepare your environment by initializing necessary imports from Praison and sett
 
 <Step title="Write the Praison-supported Composio Tools in `tools.py` file.">
 
-This step involves fetching and integrating GitHub tools provided by Composio, and writing them in Praison supported Format, returning the name of tools in a format, that should be added to `agents.yml` file.
+This step involves fetching and integrating GitHub tools provided by Composio, and writing them in PraisonAI supported Format, returning the name of tools in a format, that should be added to `agents.yml` file.
 
 <CodeGroup>
     ```python Write the tools
@@ -61,7 +63,7 @@ This step involves fetching and integrating GitHub tools provided by Composio, a
 
 </Step>
 
-<Step title="Define the 'agents_yml` either in a separate file, or in your script.">
+<Step title="Define the `agents.yml` either in a separate file, or in your script.">
 
 This step involves configuring and executing the agent to carry out actions, such as starring a GitHub repository.
 
@@ -89,7 +91,7 @@ This step involves configuring and executing the agent to carry out actions, suc
 </Step>
 
 
-<Step title="Run the Praison Agents to execute the goal/task.">
+<Step title="Run the PraisonAI Agents to execute the goal/task.">
 
 Here you initialize PraisonAI class, and execute.
 

@@ -1,17 +1,17 @@
 ---
-title: "🐪 Using Composio With Camel-AI"
-sidebarTitle: "Camel SDK"
-icon: "robot"
-description: "Integrate Composio with Camel agents to let them seamlessly interact with external apps"
+title: "🐫 Using Composio With CAMEL-AI"
+sidebarTitle: "CAMEL SDK"
+icon: "cow"
+description: "Integrate Composio with CAMEL agents to let them seamlessly interact with external apps"
 ---
 
-**Composio enables** your **Camel agents** to **connect** with many **tools**!
+**Composio enables** your **CAMEL agents** to **connect** with many **tools**!
 
-<Tip>Goal: Star a repository on GitHub with natural language & Camel Agent</Tip>
+<Tip>Goal: Star a repository on GitHub with natural language & CAMEL Agent</Tip>
 
 ### Install Packages & Connect a Tool
 
-Ensure you have the necessary packages installed and connect your GitHub account to allow your Camel-AI agents to utilize GitHub functionalities.
+Ensure you have the necessary packages installed and connect your GitHub account to allow your CAMEL-AI agents to utilize GitHub functionalities.
 <CodeGroup>
     ``` bash Run command
     pip install camel-ai
@@ -23,12 +23,12 @@ Ensure you have the necessary packages installed and connect your GitHub account
     ```
 </CodeGroup>
 
-### Goal: Prepare your environment by initializing necessary imports from Composio & Camel.
+### Goal: Prepare your environment by initializing necessary imports from Composio & CAMEL.
 
 <Steps>
 <Step title="Import Base Packages">
 
-Prepare your environment by initializing necessary imports from Composio & Camel.
+Prepare your environment by initializing necessary imports from Composio & CAMEL.
 
 <CodeGroup>
     ```python Default Imports
@@ -49,10 +49,10 @@ Prepare your environment by initializing necessary imports from Composio & Camel
 
 <Step title="Integrating GitHub Tools with Composio">
 
-This step involves fetching and integrating GitHub tools provided by Composio, enabling enhanced functionality for Camel operations.
+This step involves fetching and integrating GitHub tools provided by Composio, enabling enhanced functionality for CAMEL operations.
 
 <CodeGroup>
-    ```python Camel Supported tools from Composio
+    ```python CAMEL Supported tools from Composio
     composio_toolset = ComposioToolSet()
     tools = composio_toolset.get_actions(
         actions=[Action.GITHUB_ACTIVITY_STAR_REPO_FOR_AUTHENTICATED_USER]
@@ -62,12 +62,12 @@ This step involves fetching and integrating GitHub tools provided by Composio, e
 
 </Step>
 
-<Step title="Camel Agent Setup">
+<Step title="CAMEL Agent Setup">
 
 This step involves configuring and executing the agent to carry out actions, such as starring a GitHub repository.
 
 <CodeGroup>
-    ```python Camel Agent Setup
+    ```python CAMEL Agent Setup
     assistant_model_config = ChatGPTConfig(
         temperature=0.0,
         tools=tools,
@@ -106,7 +106,7 @@ This step involves configuring and executing the agent to carry out actions, suc
 Execute the following code to excute the agent, ensuring that the intended task has been successfully completed.
 
 <CodeGroup>
-    ```python Camel Agent Execution
+    ```python CAMEL Agent Execution
     prompt = (
         "I have created a new Github Repo,"
         "Please star my github repository: camel-ai/camel"

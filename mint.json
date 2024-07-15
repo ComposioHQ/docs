@@ -121,21 +121,21 @@
         },
         "introduction/foundations/tools/tools-intro",
         {
-          "group": "Frameworks",
-          "pages": [
-            "framework/langchain",
-            "framework/autogen",
-            "framework/crewai",
-            "framework/lyzr",
-            "framework/openai",
-            "framework/julep",
-            "framework/griptape",
-            "framework/llamaindex",
-            "framework/camelai",
-            "framework/praisonai"
-          ]
-        },
-        "introduction/foundations/swekit"
+      "group": "Frameworks",
+      "pages": [
+        "framework/langchain",
+        "framework/autogen",
+        "framework/crewai",
+        "framework/lyzr",
+        "framework/openai",
+        "framework/julep",
+        "framework/griptape",
+        "framework/llamaindex",
+        "framework/camelai",
+        "framework/praisonai",
+        "framework/langgraph"
+      ]
+    }
       ]
     },
     {
