@@ -116,14 +116,17 @@
           "icon": "code",
           "iconType": "solid",
           "pages": [
-            "framework/langchain",
-            "framework/autogen",
-            "framework/crewai",
-            "framework/lyzr",
-            "framework/openai",
-            "framework/julep",
-            "framework/griptape",
-            "framework/llamaindex"
+      "framework/langchain",
+        "framework/autogen",
+        "framework/crewai",
+        "framework/lyzr",
+        "framework/openai",
+        "framework/julep",
+        "framework/griptape",
+        "framework/llamaindex",
+        "framework/camelai",
+        "framework/praisonai",
+        "framework/langgraph"
           ]
         },
 
