@@ -1,23 +1,15 @@
 ---
 title: "Using Composio JS SDK with Cloudflare Worker AI"
-sidebarTitle: "With Cloudflare Worker AI"
+sidebarTitle: "Cloudflare Worker AI"
 icon: "code"
 description: "Use Composio JS SDK with Cloudflare Worker AI"
 ---
 
 <Steps>
-<Step title="Import Dependencies">
- <CodeGroup>
-      ```javascript Import Hono and CloudflareToolSet
-import { Hono } from 'hono';
-import { CloudflareToolSet } from "composio-core"
-      ```
-    </CodeGroup>
-</Step>
 
 <Step title="Setup wrangler in wrangler.toml file">
 <CodeGroup>
-    ```toml Setup Wrangler
+    ```toml wrangler.toml
 name = "ai-playground"
 main = "src/worker.js"
 compatibility_date = "2024-04-18"
@@ -26,15 +18,32 @@ compatibility_date = "2024-04-18"
 binding = "AI"
 
 [vars]
-COMPOSIO_API_KEY = ""
+COMPOSIO_API_KEY = "{{COMPOSIO_API_KEY}}"
 ```
 </CodeGroup>
 </Step>
 
+
+<Step title="Create JS file and Import Dependencies">
+ <CodeGroup>
+      ```typescript Import Hono and CloudflareToolSet
+import { Hono } from 'hono';
+import { CloudflareToolSet } from "composio-core"
+      ```
+    </CodeGroup>
+</Step>
+
 <Step title="Define method to let user connect their GitHub account">
 
- <CodeGroup>
+<CodeGroup>
       ```typescript Define method to let user connect their GitHub account
+const app = new Hono();
+
+// Configuration for the AI model
+const config = {
+        model: '@hf/nousresearch/hermes-2-pro-mistral-7b',
+};
+
 async function setupUserConnectionIfNotExists(toolset, entityId, c) {
         const entity = await toolset.client.getEntity(entityId);
         const connection = await entity.getConnection('github');
@@ -48,9 +57,8 @@ async function setupUserConnectionIfNotExists(toolset, entityId, c) {
 
         return connection;
 }
-
-      ```
-    </CodeGroup>
+```
+</CodeGroup>
 
 Learn more about entities [here](introduction/foundations/components/entity/entity-guide)
 
@@ -60,12 +68,6 @@ Learn more about entities [here](introduction/foundations/components/entity/enti
 
 <CodeGroup>
       ```typescript Define your Agent
-const app = new Hono();
-
-const config = {
-        model: '@hf/nousresearch/hermes-2-pro-mistral-7b',
-};
-
 app.post('/', async (c) => {
         // Initialize the CloudflareToolSet with the API key
         const toolset = new CloudflareToolSet({
@@ -99,19 +101,18 @@ app.post('/', async (c) => {
             return c.text('Something went wrong', 500);
         }
 });
-
-      ```
+```
     </CodeGroup>
 
 </Step>
 
 <Step title="Invoke Your Agent">
-Start Wrangler by doing ```wrangler dev``` and do a POST request to the server to invoke your agent.
+Start Wrangler by doing ```wrangler dev``` and send a POST request to the server to invoke your agent.
 
 Tada 🎉! It was this simple to create a powerful Agent with Composio and Cloudflare Worker AI.
 </Step>
 
 <Step title="Complete code snippet">
-View the full snippet [here](https://github.com/ComposioHQ/composio-js/blob/main/examples/ai-playground-main/src/worker.js)
+View the full snippet [here](https://github.com/ComposioHQ/composio/tree/master/js/examples/ai-playground-main/src/worker.js)
 </Step>
 </Steps>
