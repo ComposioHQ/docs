@@ -85,34 +85,16 @@
       "url": "https://composio.notion.site/Bounties-10cefafa040943d889381fc22e4122ac"
     }
   ],
-  "anchors": [
-    {
-      "name": "Python and JS SDK",
-      "icon": "terminal",
-      "url": "sdk"
-    },
-    {
-      "name": "API",
-      "icon": "code",
-      "url": "api-reference"
-    }
-  ],
+  "anchors": [],
   "navigation": [
     {
       "group": "Introduction",
       "pages": [
         "introduction/intro/overview",
-        "introduction/intro/quickstart",
-        "introduction/intro/help"
-      ]
-    },
-    {
-      "group": "Getting Started",
-      "pages": [
-        "introduction/foundations/basic",
-        {
-          "group": "Components",
+                {
+          "group": "Core Concepts",
           "pages": [
+            "introduction/foundations/basic",
             "introduction/foundations/components/integrations/integration-guide",
             "introduction/foundations/components/entity/entity-guide",
             "introduction/foundations/components/integrations/connected-account",
@@ -121,50 +103,69 @@
             "introduction/foundations/components/actions/local-code",
             "introduction/foundations/components/integrations/custom-integration"
           ]
-        },
-        "introduction/foundations/tools/tools-intro",
-        {
-      "group": "Frameworks",
+        }
+      ]
+    },
+    {
+      "group": "Python",
+
       "pages": [
-        "framework/langchain",
-        "framework/autogen",
-        "framework/crewai",
-        "framework/lyzr",
-        "framework/openai",
-        "framework/julep",
-        "framework/griptape",
-        "framework/llamaindex",
-        "framework/camelai",
-        "framework/praisonai",
-        "framework/langgraph"
+        "introduction/intro/quickstart",
+        {
+          "group": "With Frameworks",
+          "icon": "code",
+          "iconType": "solid",
+          "pages": [
+            "framework/langchain",
+            "framework/autogen",
+            "framework/crewai",
+            "framework/lyzr",
+            "framework/openai",
+            "framework/julep",
+            "framework/griptape",
+            "framework/llamaindex"
+          ]
+        },
+
+            {
+      "group": "More",
+                "icon": "circle",
+      "pages": [
+        "introduction/python/trigger",
+        "python/introduction",
+        "python/configuration",
+        "python/actions",
+        "python/local_tools"
       ]
     }
       ]
     },
-    {
-      "group": "Pricing",
+            {
+      "group": "Javascript",
       "pages": [
-        "introduction/pricing/startups-program"
-      ]
-    },    
-    {
-      "group": "Python SDK",
-      "pages": [
-        "sdk/python/introduction",
-        "sdk/python/configuration",
-        "sdk/python/actions",
-        "sdk/python/local_tools"
-      ]
-    },
+       "javascript/introduction",
         {
-      "group": "JS SDK",
+          "group": "With frameworks",
+          "icon": "code",
+          "iconType": "solid",
+          "pages": [
+              
+        "javascript/langchain",
+        "javascript/openai",
+        "javascript/cloudflare"
+          ]
+        },
+                    {
+      "group": "More",
+                "icon": "circle",
       "pages": [
-        "sdk/javascript/introduction",
-        "sdk/javascript/langchain",
-        "sdk/javascript/openai",
-        "sdk/javascript/cloudflare"
+        "javascript/trigger"
+      ]
+    }
       ]
     },
+
+
     {
       "group": "CLI API",
       "pages": [

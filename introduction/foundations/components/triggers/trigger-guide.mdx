@@ -123,15 +123,20 @@ def callback_function(event):
 listener.listen()
 ```
 ```javascript javascript
-// Create a trigger listener
-const listener = composio_toolset.createTriggerListener();
+import { LangchainToolSet } from "composio-core"; // or any other toolset
 
-// Triggers when a new event has taken place
-listener.callback({ filters: { trigger_name: "trigger_name" } }, (event) => {
-    // Your Code Here
+const toolset = new LangchainToolSet({ apiKey: process.env.COMPOSIO_API_KEY }); /
+const composio_client = toolset.client
+
+// If not using LangchainToolSet
+// import {Composio} from "composio-core";  
+//const composio_client = new Composio({apiKey: process.env.COMPOSIO_API_KEY});
+
+
+// Subscribe to triggers and perform actions
+composio_client.triggers.subscribe((data) => {
+    console.log("trigger received", data);
 });
-
-listener.listen();
 ```
 </CodeGroup>
 
